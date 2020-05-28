@@ -1,0 +1,42 @@
+{
+    "name": "zareismail/nova-contracts",
+    "description": "A Laravel Nova tool.",
+    "keywords": [
+        "laravel",
+        "nova"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1.0",
+        "laravel/nova": "~3.0",
+        "doctrine/dbal": "~2.10",
+        "armincms/bios": "~0.1",
+        "armincms/json": "~0.1",
+        "dmitrybubyakin/nova-medialibrary-field": "2.*",
+        "inspheric/nova-defaultable" : "~1.2", 
+        "zareismail/nova-policy": "~0.1", 
+        "zareismail/contracts": "*"
+    }, 
+    "autoload": {
+        "psr-4": {
+            "Zareismail\\NovaContracts\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [ 
+                "Zareismail\\NovaContracts\\ServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "@php artisan nova:publish"
+        ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
