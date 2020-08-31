@@ -10,6 +10,15 @@ class User extends Authenticatable
     use InteractsWithPolicy; 
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'profile' => 'json',
+    ];
+
+    /**
      * Get the class name for polymorphic relations.
      *
      * @return string

@@ -16,7 +16,7 @@ class ChangeUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
             $table->string('mobile', 15)->nullable()->unique()->index('user_unique_mobile');  
-            $table->json('profile')->default('[]'); 
+            $table->json('profile')->nullable(); 
         });
     }
 
