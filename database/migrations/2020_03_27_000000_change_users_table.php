@@ -15,7 +15,7 @@ class ChangeUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
-            $table->string('mobile', 15)->nullable()->unique()->index('user_unique_mobile');  
+            $table->string('mobile', 15)->nullable()->unique()->index();  
             $table->json('profile')->nullable(); 
         });
     }
@@ -26,10 +26,9 @@ class ChangeUsersTable extends Migration
      * @return void
      */
     public function down()
-    {
-        Schema::table('users', function (Blueprint $table) { 
-            $table->dropIndex(['user_unique_mobile']);
-            $table->dropColumn(['mobile', 'firstname', 'lastname']);
-        });
+    { 
+        Schema::table('users', function (Blueprint $table) {  
+            $table->dropColumn('mobile', 'profile');
+        });  
     }
 }
