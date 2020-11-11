@@ -3,11 +3,10 @@
 namespace Zareismail\NovaContracts\Nova;
   
 use Laravel\Nova\Resource as NovaResource;  
-use Inspheric\NovaDefaultable\HasDefaultableFields;
 
 abstract class Resource extends NovaResource
 {      
-	use HasDefaultableFields, InteractsWithNavigation;
+	use InteractsWithNavigation;
 
     /**
      * The logical group associated with the resource.
