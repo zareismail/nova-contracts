@@ -1,6 +1,6 @@
 <?php
 
-namespace Zareismail\NovaContracts;
+namespace Zareismail\NovaContracts\Models;
 
 use Zareismail\Contracts\User as Authenticatable;
 use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;

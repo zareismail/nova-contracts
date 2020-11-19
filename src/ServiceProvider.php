@@ -20,13 +20,14 @@ class ServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         $this->app['config']->set('auth.guards.admin', config('auth.guards.web')); 
-        $this->app['config']->set('auth.providers.users.model', User::class); 
-        $this->app['config']->set('zareismail.user', User::class); 
+        $this->app['config']->set('auth.providers.users.model', Models\User::class); 
+        $this->app['config']->set('zareismail.user', Models\User::class); 
         $this->app['config']->set('option.default', 'database');   
         $this->app['config']->set('nova.path', 'dashboard');  
+        $this->app['config']->set('medialibrary.media_model', Models\Media::class);  
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations'); 
         LaravelNova::serving([$this, 'servingNova']); 
-        parent::boot(); 
+        parent::boot();          
     }
 
     /**
@@ -83,7 +84,8 @@ class ServiceProvider extends NovaApplicationServiceProvider
             return $user->can('viewDashboard');
         });
 
-        Gate::policy(User::class, Policies\UserPolicy::class); 
+        Gate::policy(Models\User::class, Policies\UserPolicy::class); 
+        Gate::policy(Models\Media::class, Policies\MediaPolicy::class); 
     }
 
     /**
