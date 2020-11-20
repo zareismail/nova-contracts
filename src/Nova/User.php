@@ -74,7 +74,7 @@ class User extends Resource
 
             Text::make('Mobile')
                 ->sortable()
-                ->rules('iran_mobile', 'max:12')
+                ->rules('regex:/^[0-9]{11,12}$/')
                 ->creationRules('unique:users,mobile')
                 ->updateRules('unique:users,mobile,{{resourceId}}'),
 
