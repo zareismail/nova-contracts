@@ -14,7 +14,7 @@
         "armincms/json": "~0.1",
         "armincms/many-to-many": "~0.2",
         "dmitrybubyakin/nova-medialibrary-field": "2.*", 
-        "zareismail/nova-policy": "~0.1", 
+        "zareismail/nova-policy": "1.*", 
         "zareismail/contracts": "*"
     }, 
     "autoload": {
