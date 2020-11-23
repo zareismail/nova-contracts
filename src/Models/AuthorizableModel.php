@@ -2,6 +2,7 @@
 
 namespace Zareismail\NovaContracts\Models;
  
+use Illuminate\Database\Eloquent\Model;
 use Zareismail\NovaContracts\Auth\Authorizable;  
 use Zareismail\NovaContracts\Auth\Authorization;
 

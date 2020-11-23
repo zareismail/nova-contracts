@@ -25,7 +25,7 @@ trait ShareableResource
      * @param  \Laravel\Nova\Resource $resource 
      * @return boolean             
      */
-    public function isAvailableFor(Resource $resource)
+    public function isAvailableFor($resource)
     {
         return  $this->isRequiredFor($resource) || 
                 $this->isExclusiveFor($resource) || 
@@ -38,7 +38,7 @@ trait ShareableResource
      * @param  \Laravel\Nova\Resource $resource 
      * @return boolean             
      */
-    public function isRequiredFor(Resource $resource)
+    public function isRequiredFor($resource)
     {
         return $this->sharedAs($resource, 'required');   
     }  
@@ -49,7 +49,7 @@ trait ShareableResource
      * @param  \Laravel\Nova\Resource $resource 
      * @return boolean             
      */
-    public function isOptionalFor(Resource $resource)
+    public function isOptionalFor($resource)
     {
         return ! $this->isRequiredFor($required);
     } 
@@ -80,7 +80,7 @@ trait ShareableResource
      * @param  \Laravel\Nova\Resource $resource 
      * @return boolean             
      */
-    public function isExclusiveFor(Resource $resource)
+    public function isExclusiveFor($resource)
     {
         return $this->sharedAs($resource, 'only');
     } 
@@ -91,7 +91,7 @@ trait ShareableResource
      * @param  \Laravel\Nova\Resource $resource 
      * @return boolean             
      */
-    public function isExcludedFor(Resource $resource)
+    public function isExcludedFor($resource)
     {
         return $this->sharedAs($resource, 'except');
     }
@@ -102,7 +102,7 @@ trait ShareableResource
      * @param  \Laravel\Nova\Resource $resource 
      * @return boolean             
      */
-    public function isNotExcludedFor(Resource $resource)
+    public function isNotExcludedFor($resource)
     {
         return ! $this->isExcludedFor($resource);
     }    
@@ -116,7 +116,7 @@ trait ShareableResource
     {
         return Nova::authorizedResources($request)->filter(function($resource) { 
             return collect(class_implements($resource::newModel()))->contains(static::sharingContract()); 
-        });
+        })->values();
     }
 
     /**
@@ -133,5 +133,5 @@ trait ShareableResource
      * @param  string $condition 
      * @return bool            
      */
-    abstract public function sharedAs(Resource $resource, string $condition): bool; 
+    abstract public function sharedAs($resource, string $condition): bool; 
 }
