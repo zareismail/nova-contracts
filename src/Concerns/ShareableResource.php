@@ -61,7 +61,7 @@ trait ShareableResource
      */
     public function isExclusive()
     {
-        return static::sharedResources(app('request'))->filter([$this, 'isExclusiveFor'])->isEmpty(); 
+        return static::sharedResources(app('request'))->filter([$this, 'isExclusiveFor'])->isNotEmpty(); 
     } 
 
     /**
