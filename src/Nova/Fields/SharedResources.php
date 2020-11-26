@@ -40,7 +40,9 @@ class SharedResources extends MergeValue
 
     public function prepareFields(Request $request)
     {
-    	if($resources = $this->resources($request)->pluck('label', 'name')) {
+        $resources = $this->resources($request)->pluck('label', 'name');
+
+    	if($resources->isNotEmpty()) {
     		return [ 
                 BooleanGroup::make(__('Except On The'), "{$this->attribute}->except")
                     ->options($resources)
