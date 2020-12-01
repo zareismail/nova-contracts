@@ -27,7 +27,7 @@ trait PerformsQueryAuthentication
      * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return boolean
      */
-    public function shouldAuthenticaet(NovaRequest $request): bool
+    public static function shouldAuthenticaet(NovaRequest $request): bool
     {
         return static::isOwnable() && $request->user()->cant('update', static::newModel());
     }

@@ -23,7 +23,7 @@ abstract class Resource extends NovaResource
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function authenticateQuery(NovaRequest $request, $query)
+    public static function indexQuery(NovaRequest $request, $query)
     {
         return static::authenticateQuery($request, $query);
     }
