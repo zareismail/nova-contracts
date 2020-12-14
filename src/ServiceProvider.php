@@ -9,6 +9,7 @@ use Laravel\Nova\Events\ServingNova;
 use Laravel\Nova\Nova as LaravelNova; 
 use Illuminate\Database\Eloquent\Builder; 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Events\Registered;
 
 class ServiceProvider extends NovaApplicationServiceProvider
 {
@@ -27,6 +28,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
         $this->app['config']->set('medialibrary.media_model', Models\Media::class);  
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations'); 
         LaravelNova::serving([$this, 'servingNova']); 
+        $this->registerEventListeners();
         parent::boot();          
     }
 
@@ -42,6 +44,16 @@ class ServiceProvider extends NovaApplicationServiceProvider
             Nova\Role::class, 
             Nova\General::class, 
         ]);
+    }
+
+    /**
+     * Register event lsiteners.
+     * 
+     * @return void
+     */
+    public function registerEventListeners()
+    {
+        app('events')->listen(Registered::class, Listeners\RegisteredUser::class);
     }
 
     /**
