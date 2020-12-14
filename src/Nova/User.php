@@ -3,12 +3,10 @@
 namespace Zareismail\NovaContracts\Nova;
 
 use Illuminate\Http\Request; 
-use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Boolean;
-use Laravel\Nova\Fields\Password;
-use Armincms\Fields\BelongsToMany; 
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\{ID, Text, Boolean, Password};
 use Zareismail\NovaPolicy\Nova\Permission;
+use Armincms\Fields\BelongsToMany; 
 
 class User extends Resource
 {
@@ -98,6 +96,19 @@ class User extends Resource
                     return $request->user()->can('attach', Permission::newModel());
                 }),
         ];
+    }
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->when(! $request->user()->isDeveloper(), function($query) {
+            return $query->withoutDeveloper();
+        });
     }
 
     /**

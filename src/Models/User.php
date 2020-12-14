@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->email === 'zarehesmaiel@gmail.com';
     }
+
+    public function scopeWithoutDeveloper($query)
+    {
+        return $query->where($query->qualifyColumn('email'), '!=', 'zarehesmaiel@gmail.com');
+    }
 }
