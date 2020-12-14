@@ -89,11 +89,14 @@ class User extends Resource
 
             BelongsToMany::make(__('Roles'), 'roles', Role::class) 
                 ->canSee(function($request) {
-                    return $request->user()->isDeveloper();
+                    return $request->user()->can('attach', Role::newModel());
                 }),
 
             BelongsToMany::make(__('Permissions'), 'permissions', Permission::class)
-                ->hideFromIndex(),
+                ->hideFromIndex()
+                ->canSee(function($request) {
+                    return $request->user()->can('attach', Permission::newModel());
+                }),
         ];
     }
 
