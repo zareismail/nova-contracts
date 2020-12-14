@@ -40,6 +40,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
         LaravelNova::resources([
             Nova\User::class, 
             Nova\Role::class, 
+            Nova\General::class, 
         ]);
     }
 
