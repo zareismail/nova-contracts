@@ -18,6 +18,7 @@ class ChangeUsersTable extends Migration
             $table->string('email')->nullable()->change();
             $table->string('mobile', 15)->nullable()->unique()->index();  
             $table->json('profile')->nullable(); 
+            $table->softDeletes(); 
         });
 
         (new User)->forceFill([
