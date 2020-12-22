@@ -2,12 +2,13 @@
 
 namespace Zareismail\NovaContracts\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Zareismail\Contracts\User as Authenticatable;
 use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 
 class User extends Authenticatable
 { 
-    use InteractsWithPolicy; 
+    use InteractsWithPolicy, SoftDeletes; 
 
     /**
      * The attributes that should be cast.

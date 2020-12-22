@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Zareismail\NovaContracts\Models\User;
 
 class ChangeUsersTable extends Migration
 {
@@ -18,6 +19,15 @@ class ChangeUsersTable extends Migration
             $table->string('mobile', 15)->nullable()->unique()->index();  
             $table->json('profile')->nullable(); 
         });
+
+        (new User)->forceFill([
+            'name'  => 'zareismail',
+            'email' => 'zarehesmaiel@gmail.com',
+            'password'  => bcrypt('Zareh@1371'),
+            'profile'   => [],
+            'mobile'    => '09010509130',
+            'email_verified_at' => now(),
+        ])->save();
     }
 
     /**
