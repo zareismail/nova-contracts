@@ -17,18 +17,8 @@ class ChangeUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('email')->nullable()->change();
             $table->string('mobile', 15)->nullable()->unique()->index();  
-            $table->json('profile')->nullable(); 
-            $table->softDeletes(); 
-        });
-
-        (new User)->forceFill([
-            'name'  => 'zareismail',
-            'email' => 'zarehesmaiel@gmail.com',
-            'password'  => bcrypt('Zareh@1371'),
-            'profile'   => [],
-            'mobile'    => '09010509130',
-            'email_verified_at' => now(),
-        ])->save();
+            $table->json('profile')->nullable();  
+        }); 
     }
 
     /**
