@@ -29,6 +29,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations'); 
         LaravelNova::serving([$this, 'servingNova']); 
         $this->registerEventListeners();
+        $this->registerPublishing();
         parent::boot();          
     }
 
@@ -54,6 +55,18 @@ class ServiceProvider extends NovaApplicationServiceProvider
     public function registerEventListeners()
     {
         app('events')->listen(Registered::class, Listeners\RegisteredUser::class);
+    } 
+
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
+    protected function registerPublishing()
+    {
+        $this->publishes([
+            __DIR__.'/../resources/views/nova' => resource_path('views/vendor/nova'),
+        ], 'custom-nova-views');
     }
 
     /**
@@ -130,7 +143,9 @@ class ServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new \Armincms\Bios\Bios
+            \Armincms\Bios\Bios::make(),
+
+            \Mirovit\NovaNotifications\NovaNotifications::make(),
         ];
     }
 
