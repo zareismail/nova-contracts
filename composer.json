@@ -15,7 +15,8 @@
         "armincms/many-to-many": "~0.2",
         "dmitrybubyakin/nova-medialibrary-field": "2.*", 
         "zareismail/nova-policy": "1.*", 
-        "zareismail/contracts": "~0.1"
+        "zareismail/contracts": "~0.2",
+        "zareismail/nova-pusher": "~0.1"
     }, 
     "autoload": {
         "psr-4": {
