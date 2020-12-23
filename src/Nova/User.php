@@ -5,6 +5,7 @@ namespace Zareismail\NovaContracts\Nova;
 use Illuminate\Http\Request; 
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\{ID, Text, Boolean, Password};
+use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Zareismail\NovaPolicy\Nova\Permission;
 use Armincms\Fields\BelongsToMany; 
 
@@ -94,6 +95,14 @@ class User extends Resource
                 ->hideFromIndex()
                 ->canSee(function($request) {
                     return $request->user()->can('attach', Permission::newModel());
+                }),
+
+            Medialibrary::make(__('Image'), 'image')
+                ->attachExisting()
+                ->autouploading()
+                ->single()
+                ->attachExisting(function ($query, $request, $model) {
+                    $query->authenticate();
                 }),
         ];
     }
