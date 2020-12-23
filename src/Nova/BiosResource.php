@@ -47,6 +47,6 @@ abstract class BiosResource extends Resource
      */
     public static function getPrefix(): string
     {
-        return Str::kebab(implode(' ', explode('\\', get_called_class())));
+        return Str::snake(implode(' ', explode('\\', get_called_class())));
     }
 }
