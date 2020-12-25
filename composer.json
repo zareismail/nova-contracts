@@ -17,6 +17,9 @@
         "zareismail/nova-policy": "1.*", 
         "zareismail/contracts": "~0.2",
         "zareismail/nova-pusher": "~0.1"
+        "mirovit/nova-notifications": "^1.0",
+        "pusher/pusher-php-server": "^4.1", 
+        "zareismail/nova-pusher": "*"
     }, 
     "autoload": {
         "psr-4": {

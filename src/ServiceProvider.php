@@ -48,6 +48,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
             Nova\Role::class, 
             Nova\General::class, 
             Nova\Pusher::class, 
+            Nova\Notification::class, 
         ]);
 
         LaravelNova::provideToScript([
