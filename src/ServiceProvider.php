@@ -4,6 +4,7 @@ namespace Zareismail\NovaContracts;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Builder; 
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\{Gate, Storage};
 use Laravel\Nova\NovaApplicationServiceProvider;
@@ -18,7 +19,8 @@ class ServiceProvider extends NovaApplicationServiceProvider
      * @return void
      */
     public function boot()
-    {
+    { 
+        $this->app['config']->set('broadcasting.default', 'pusher'); 
         $this->app['config']->set('auth.guards.admin', config('auth.guards.web')); 
         $this->app['config']->set('auth.providers.users.model', Models\User::class); 
         $this->app['config']->set('zareismail.user', Models\User::class); 
@@ -27,8 +29,9 @@ class ServiceProvider extends NovaApplicationServiceProvider
         $this->app['config']->set('medialibrary.media_model', Models\Media::class);  
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations'); 
         LaravelNova::serving([$this, 'servingNova']); 
-        $this->registerEventListeners();
         $this->mergeConfigurations();
+        $this->registerEventListeners();
+        $this->configureBroadcasting();
         $this->registerPublishing();
         parent::boot();          
     }
@@ -46,6 +49,10 @@ class ServiceProvider extends NovaApplicationServiceProvider
             Nova\General::class, 
             Nova\Pusher::class, 
         ]);
+
+        LaravelNova::provideToScript([
+            'user_model_namespace' => 'Zareismail.NovaContracts.Models.User',
+        ]);
     }
 
     /**
@@ -56,6 +63,22 @@ class ServiceProvider extends NovaApplicationServiceProvider
     public function registerEventListeners()
     {
         app('events')->listen(Registered::class, Listeners\RegisteredUser::class);
+    } 
+
+    /**
+     * Configure brodacasting.
+     * 
+     * @return void
+     */
+    public function configureBroadcasting()
+    {   
+        $this->app->booted(function() {
+            Broadcast::routes();
+
+            Broadcast::channel('Zareismail.NovaContracts.Models.User.{id}', function ($user, $id) {
+                return (int) $user->id === (int) $id;
+            }); 
+        });
     } 
 
     /**
@@ -79,10 +102,12 @@ class ServiceProvider extends NovaApplicationServiceProvider
     {
         $this->app->booted(function($app) {
             collect(Storage::disk('local')->files('config'))->each(function($file) {
-                collect(json_decode(Storage::disk('local')->get($file), true))->each(function($value, $key) {
+                $configurations = json_decode(Storage::disk('local')->get($file), true);
+
+                collect($configurations)->each(function($value, $key) {
                     $this->app['config']->set($key, $value);
                 });                 
-            }); 
+            });  
         }); 
     }
 
