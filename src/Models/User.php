@@ -28,7 +28,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function getMorphClass()
     {  
-        return User::class;
+        return self::class;
     }
 
     /**
