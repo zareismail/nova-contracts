@@ -2,14 +2,13 @@
 
 namespace Zareismail\NovaContracts;
 
-use Illuminate\Support\Facades\Gate;
-use Laravel\Nova\Cards\Help; 
-use Laravel\Nova\NovaApplicationServiceProvider;
-use Laravel\Nova\Events\ServingNova;
-use Laravel\Nova\Nova as LaravelNova; 
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\Eloquent\Builder; 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\{Gate, Storage};
+use Laravel\Nova\NovaApplicationServiceProvider;
+use Laravel\Nova\Nova as LaravelNova; 
+use Laravel\Nova\Events\ServingNova;  
 
 class ServiceProvider extends NovaApplicationServiceProvider
 {
@@ -29,6 +28,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations'); 
         LaravelNova::serving([$this, 'servingNova']); 
         $this->registerEventListeners();
+        $this->mergeConfigurations();
         $this->registerPublishing();
         parent::boot();          
     }
@@ -44,6 +44,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
             Nova\User::class, 
             Nova\Role::class, 
             Nova\General::class, 
+            Nova\Pusher::class, 
         ]);
     }
 
@@ -67,6 +68,22 @@ class ServiceProvider extends NovaApplicationServiceProvider
         $this->publishes([
             __DIR__.'/../resources/views/nova' => resource_path('views/vendor/nova'),
         ], 'custom-nova-views');
+    }
+
+    /**
+     * Merge the custom configurations via the default configurations.
+     *
+     * @return void
+     */
+    protected function mergeConfigurations()
+    {
+        $this->app->booted(function($app) {
+            collect(Storage::disk('local')->files('config'))->each(function($file) {
+                collect(json_decode(Storage::disk('local')->get($file), true))->each(function($value, $key) {
+                    $this->app['config']->set($key, $value);
+                });                 
+            }); 
+        }); 
     }
 
     /**
