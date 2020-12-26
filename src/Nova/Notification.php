@@ -70,6 +70,11 @@ class Notification extends Resource
                 ->required()
                 ->rules('required'), 
 
+            Text::make('Subtitle', 'data->subtitle')
+                ->sortable()
+                ->required()
+                ->rules('required'),  
+
             Text::make('Send At', function() {
                 return optional($this->created_at)->diffForHumans();
             }),  
