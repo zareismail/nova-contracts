@@ -28,7 +28,7 @@ class UserPolicy
      */
     public function viewAny(Authenticatable $user)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function view(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -51,7 +51,7 @@ class UserPolicy
      */
     public function create(Authenticatable $user)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -63,7 +63,7 @@ class UserPolicy
      */
     public function update(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -75,7 +75,7 @@ class UserPolicy
      */
     public function delete(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -87,7 +87,7 @@ class UserPolicy
      */
     public function restore(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -99,7 +99,7 @@ class UserPolicy
      */
     public function forceDelete(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -111,7 +111,7 @@ class UserPolicy
      */
     public function attachPolicyPermission(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -122,7 +122,7 @@ class UserPolicy
      */
     public function attachAnyPolicyPermission(Authenticatable $user)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -134,7 +134,7 @@ class UserPolicy
      */
     public function detachPolicyPermission(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -146,7 +146,7 @@ class UserPolicy
      */
     public function attachPolicyRole(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -157,7 +157,7 @@ class UserPolicy
      */
     public function attachAnyPolicyRole(Authenticatable $user)
     {
-        //
+        return $user->isDeveloper();
     }
 
     /**
@@ -169,6 +169,6 @@ class UserPolicy
      */
     public function detachPolicyRole(Authenticatable $user, Authenticatable $authenticatable)
     {
-        //
+        return $user->isDeveloper();
     }
 }

@@ -19,7 +19,7 @@ class MediaPolicy
      */
     public function view(Authenticatable $user, Media $media)
     {
-        return true;
+        return $user->isDeveloper();
     }
 
     /**
@@ -31,7 +31,7 @@ class MediaPolicy
      */
     public function update(Authenticatable $user, Media $media)
     {
-        return true;
+        return $user->isDeveloper();
     }
 
     /**
@@ -43,6 +43,6 @@ class MediaPolicy
      */
     public function delete(Authenticatable $user, Media $media)
     {
-        return true;
+        return $user->isDeveloper();
     }
 }
