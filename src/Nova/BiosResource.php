@@ -8,6 +8,13 @@ use Armincms\Bios\Resource;
 abstract class BiosResource extends Resource
 {    
     /**
+     * The model the resource corresponds to.
+     *
+     * @var string
+     */
+    public static $model = \Zareismail\NovaContracts\Models\Option::class; 
+
+    /**
      * Get the URI key for the resource.
      *
      * @return string

@@ -155,6 +155,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
 
         Gate::policy(Models\User::class, Policies\UserPolicy::class); 
         Gate::policy(Models\Media::class, Policies\MediaPolicy::class); 
+        Gate::policy(Models\Option::class, Policies\OptionPolicy::class); 
     }
 
     /**
