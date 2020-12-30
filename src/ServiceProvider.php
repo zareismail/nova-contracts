@@ -54,6 +54,14 @@ class ServiceProvider extends NovaApplicationServiceProvider
         LaravelNova::provideToScript([
             'user_model_namespace' => 'Zareismail.NovaContracts.Models.User',
         ]);
+
+        LaravelNova::cards([
+            Nova\Metrics\NewUsers::make()->canSeeWhen('create', Models\User::class),
+
+            Nova\Metrics\UserActions::make(), 
+
+            Nova\Metrics\UserResources::make(), 
+        ]);
     }
 
     /**
