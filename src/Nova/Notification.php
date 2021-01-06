@@ -3,6 +3,7 @@
 namespace Zareismail\NovaContracts\Nova;
 
 use Illuminate\Http\Request;  
+use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\{ID, Text, Select,  DateTime, MorphTo};
 
 class Notification extends Resource
@@ -84,6 +85,22 @@ class Notification extends Resource
             }),   
         ];
     } 
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->when($request->user()->cant('update', static::$model), function($query) use ($request) {
+            $query->whereHasMorph('notifiable', [$request->user()->getMorphClass()], function($query) use ($request) {
+                $query->whereKey($request->user()->id);
+            });
+        });
+    }
 
     /**
      * Get the cards available for the request.
