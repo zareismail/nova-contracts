@@ -28,7 +28,7 @@ class User extends Authenticatable implements HasMedia
      */
     public function getMorphClass()
     {  
-        return self::class;
+        return \Zareismail\NovaContracts\Models\User::class;
     }
 
     /**
