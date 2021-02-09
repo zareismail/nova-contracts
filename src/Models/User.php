@@ -3,6 +3,7 @@
 namespace Zareismail\NovaContracts\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Zareismail\Contracts\User as Authenticatable;
 use Zareismail\NovaPolicy\Concerns\InteractsWithPolicy;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
@@ -10,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class User extends Authenticatable implements HasMedia
 { 
-    use InteractsWithPolicy, SoftDeletes, HasMediaTrait; 
+    use HasFactory, InteractsWithPolicy, SoftDeletes, HasMediaTrait; 
 
     /**
      * The attributes that should be cast.
@@ -20,6 +21,16 @@ class User extends Authenticatable implements HasMedia
     protected $casts = [
         'profile' => 'json',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return \NovaContracts\Factories\UserFactory::new();
+    }
 
     /**
      * Get the class name for polymorphic relations.

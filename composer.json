@@ -23,7 +23,9 @@
     }, 
     "autoload": {
         "psr-4": {
-            "Zareismail\\NovaContracts\\": "src/"
+            "Zareismail\\NovaContracts\\": "src/",
+            "NovaContracts\\Factories\\": "database/factories/",
+            "NovaContracts\\Seeders\\": "database/seeders/"
         }
     },
     "extra": {
@@ -42,5 +44,5 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true 
 }
