@@ -7,7 +7,7 @@ use Laravel\Nova\Resource as NovaResource;
 
 abstract class Resource extends NovaResource
 {      
-	use InteractsWithNavigation, PerformsQueryAuthentication;
+	use InteractsWithNavigation, PerformsQueryAuthentication, ResourceLabeling;
 
     /**
      * The logical group associated with the resource.
