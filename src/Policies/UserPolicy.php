@@ -26,10 +26,10 @@ class UserPolicy
      * @param  \Illuminate\Contracts\Auth\Authenticatable $user
      * @return mixed
      */
-    public function viewAny(Authenticatable $user)
-    {
-        return $user->isDeveloper();
-    }
+    // public function viewAny(Authenticatable $user)
+    // {
+    //     return $user->isDeveloper();
+    // }
 
     /**
      * Determine whether the user can view the policy role.
