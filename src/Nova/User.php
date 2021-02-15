@@ -121,6 +121,16 @@ class User extends Resource
     }
 
     /**
+     * Get the value that should be displayed to represent the resource.
+     *
+     * @return string
+     */
+    public function title()
+    {
+        return $this->fullname();
+    }
+
+    /**
      * Get the cards available for the request.
      *
      * @param  \Illuminate\Http\Request  $request
