@@ -212,7 +212,7 @@ class ServiceProvider extends NovaApplicationServiceProvider
             $model = $this->getModel();
             
             if($model instanceof Authenticatable) {
-                return trim($model->firstname.PHP_EOL.$model->lastname);
+                return trim($model->firstname.PHP_EOL.$model->lastname) ?: $model->name;
             }
 
             unset(static::$macros['fullname']);
