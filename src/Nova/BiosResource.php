@@ -15,6 +15,13 @@ abstract class BiosResource extends Resource
     public static $model = \Zareismail\NovaContracts\Models\Option::class; 
 
     /**
+     * Array of the available options.
+     * 
+     * @var array
+     */
+    public static $cachedOptions = [];
+
+    /**
      * Get the URI key for the resource.
      *
      * @return string
@@ -32,8 +39,22 @@ abstract class BiosResource extends Resource
      * @return mixed
      */
     public static function option($key, $default = null)
-    { 
-        return parent::option(static::prefix($key), $default);
+    {  
+        return data_get(static::getCachedOptions(), static::prefix($key), $default);
+    }
+
+    /**
+     * Returs array of the called class options.
+     * 
+     * @return array
+     */
+    public static function getCachedOptions()
+    {
+        if(! isset(static::$cachedOptions[get_called_class()])) {
+            static::$cachedOptions[get_called_class()] = static::options();
+        }
+
+        return static::$cachedOptions[get_called_class()];
     }
 
     /**
