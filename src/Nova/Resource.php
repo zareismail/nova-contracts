@@ -31,10 +31,8 @@ abstract class Resource extends NovaResource
                                       array $filters = [], array $orderings = [],
                                       $withTrashed = TrashedStatus::DEFAULT)
     {
-        return $query->where(function($query) use ($request, $search, $filters, $orderings, $withTrashed) {
-            $query = static::authenticateQuery($request, $query);
-
-            parent::buildIndexQuery($request, $query, $search, $filters, $orderings, $withTrashed);
-        }); 
+        return parent::buildIndexQuery(
+            $request, static::authenticateQuery($request, $query), $search, $filters, $orderings, $withTrashed
+        );
     }
 }
