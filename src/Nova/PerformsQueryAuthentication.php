@@ -16,8 +16,10 @@ trait PerformsQueryAuthentication
      */
     public static function authenticateQuery(NovaRequest $request, $query)
     {
-        return $query->when(static::shouldAuthenticate($request), function($query) {
-            $query->authenticate();
+        return $query->where(function($query) use ($request) {
+            $query->when(static::shouldAuthenticate($request), function($query) {
+                $query->authenticate();
+            });
         });
     }
 
