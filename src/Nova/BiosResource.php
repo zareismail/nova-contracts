@@ -3,6 +3,7 @@
 namespace Zareismail\NovaContracts\Nova;
 
 use Illuminate\Support\Str;  
+use Illuminate\Http\Request;
 use Armincms\Bios\Resource;  
 
 abstract class BiosResource extends Resource
@@ -76,5 +77,26 @@ abstract class BiosResource extends Resource
     public static function getPrefix(): string
     {
         return Str::snake(implode(' ', explode('\\', get_called_class())));
+    }
+
+    /**
+     * Determine if the resource should be available for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public function authorizeToViewAny(Request $request)
+    { 
+    }
+
+    /**
+     * Determine if the resource should be available for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public static function authorizedToViewAny(Request $request)
+    {
+        return true;
     }
 }

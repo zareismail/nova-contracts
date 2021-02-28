@@ -2,6 +2,7 @@
 
 namespace Zareismail\NovaContracts\Nova;
 
+use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\{Resource as NovaResource, TrashedStatus};  
 
@@ -34,5 +35,26 @@ abstract class Resource extends NovaResource
         return parent::buildIndexQuery(
             $request, static::authenticateQuery($request, $query), $search, $filters, $orderings, $withTrashed
         );
+    }
+
+    /**
+     * Determine if the resource should be available for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public function authorizeToViewAny(Request $request)
+    { 
+    }
+
+    /**
+     * Determine if the resource should be available for the given request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public static function authorizedToViewAny(Request $request)
+    {
+        return true;
     }
 }
