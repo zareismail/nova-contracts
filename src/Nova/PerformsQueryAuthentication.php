@@ -3,6 +3,7 @@
 namespace Zareismail\NovaContracts\Nova;
  
 use Laravel\Nova\Http\Requests\NovaRequest; 
+use Zareismail\Contracts\Helpers\Once;
 use Zareismail\NovaPolicy\Helper;
 
 trait PerformsQueryAuthentication
@@ -31,7 +32,9 @@ trait PerformsQueryAuthentication
      */
     public static function shouldAuthenticate(NovaRequest $request): bool
     {
-        return static::isOwnable() && $request->user()->cant('update', static::newModel());
+        return Once::get(static::$model.'.shouldAuthenticate', function() use ($request) {
+            return static::isOwnable() && $request->user()->cant('update', static::newModel());
+        });
     }
 
     /**
