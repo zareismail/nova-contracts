@@ -8,7 +8,7 @@ use Laravel\Nova\{Resource as NovaResource, TrashedStatus};
 
 abstract class Resource extends NovaResource
 {      
-	use InteractsWithNavigation, PerformsQueryAuthentication, ResourceLabeling;
+	use InteractsWithNavigation, PerformsQueryAuthentication, ResourceLabeling, Authorizable;
 
     /**
      * The logical group associated with the resource.
