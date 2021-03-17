@@ -106,6 +106,19 @@ class User extends Resource
                 }),
         ];
     }
+
+
+    /**
+     * Resolve the resource's avatar URL, if applicable.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @return string|null
+     */
+    public function resolveAvatarUrl(NovaRequest $request)
+    {
+        return $this->resource->avatar();
+    }
+
     /**
      * Build an "index" query for the given resource.
      *
