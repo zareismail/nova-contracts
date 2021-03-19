@@ -230,7 +230,8 @@ class User extends Resource
                 ->onlyOnIndex(),
 
             Actions\Login::make()
-                ->onlyOnTableRow()
+                ->onlyOnDetail()
+                ->showOnTableRow()
                 ->canSee(function($request) {
                     if ($request instanceof ActionRequest) {
                         return true;  
