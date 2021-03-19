@@ -4,6 +4,7 @@ namespace Zareismail\NovaContracts\Nova;
 
 use Illuminate\Http\Request; 
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Http\Requests\ActionRequest;
 use Laravel\Nova\Fields\{ID, Text, Boolean, Password};
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Zareismail\NovaPolicy\Nova\Permission;
@@ -134,6 +135,46 @@ class User extends Resource
     }
 
     /**
+     * Determin if logged in via another user.
+     * 
+     * @return boolean 
+     */
+    public static function hasMaskedLogin()
+    {  
+        return session()->has('maskedId');
+    } 
+
+    /**
+     * Determin if logged in via another user.
+     * 
+     * @return boolean 
+     */
+    public static function setMaskedLogin($user)
+    { 
+        return session()->put('maskedId', $user->id);
+    } 
+
+    /**
+     * Determin if logged in via another user.
+     * 
+     * @return boolean 
+     */
+    public static function getMaskedLogin()
+    { 
+        return session()->get('maskedId');
+    }  
+
+    /**
+     * Determin if logged in via another user.
+     * 
+     * @return boolean 
+     */
+    public static function revokeMaskedLogin()
+    { 
+        return session()->pull('maskedId');
+    }  
+
+    /**
      * Get the value that should be displayed to represent the resource.
      *
      * @return string
@@ -184,6 +225,22 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            Actions\Login::make()
+                ->onlyOnTableRow()
+                ->canSee(function($request) {
+                    if ($request instanceof ActionRequest) {
+                        return true;  
+                    }
+
+                    return ! static::hasMaskedLogin($this->resource);
+                }),
+
+            Actions\RevokeLogin::make()
+                ->standalone()
+                ->canSee(function($request) { 
+                    return $request instanceof ActionRequest;   
+                }),
+        ];
     }
 }
