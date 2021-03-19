@@ -226,6 +226,9 @@ class User extends Resource
     public function actions(Request $request)
     {
         return [
+            Actions\AttachRole::make()
+                ->onlyOnIndex(),
+
             Actions\Login::make()
                 ->onlyOnTableRow()
                 ->canSee(function($request) {
