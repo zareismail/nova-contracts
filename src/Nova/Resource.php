@@ -57,4 +57,30 @@ abstract class Resource extends NovaResource
     {
         return true;
     }
+
+    /**
+     * Returns new Date field.
+     * 
+     * @param  string $name            
+     * @param  string $attribute       
+     * @param  callable $resolveCallback 
+     * @return \Laravel\Nova\Fields\Field                  
+     */
+    public static function dateField($name, $attribute = null, $resolveCallback = null)
+    {
+        return \Dpsoft\NovaPersianDate\PersianDate::make($name, $attribute, $resolveCallback);
+    }
+
+    /**
+     * Returns new DateTime field.
+     * 
+     * @param  string $name            
+     * @param  string $attribute       
+     * @param  callable $resolveCallback 
+     * @return \Laravel\Nova\Fields\Field                  
+     */
+    public static function datetimeField($name, $attribute = null, $resolveCallback = null)
+    {
+        return \Dpsoft\NovaPersianDate\PersianDateTime::make($name, $attribute, $resolveCallback);
+    }
 }
