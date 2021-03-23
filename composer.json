@@ -19,7 +19,8 @@
         "zareismail/contracts": "~0.4",
         "zareismail/nova-pusher": "~0.1",
         "mirovit/nova-notifications": "^1.0",
-        "pusher/pusher-php-server": "^4.1" 
+        "pusher/pusher-php-server": "^4.1",
+        "dpsoft/nova-persian-date": "~1.0"
     }, 
     "autoload": {
         "psr-4": {
@@ -44,5 +45,6 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true 
+    "prefer-stable": true,
+    "version": "0.100.0"
 }
