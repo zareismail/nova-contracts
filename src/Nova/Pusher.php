@@ -4,7 +4,7 @@ namespace Zareismail\NovaContracts\Nova;
 
 use Illuminate\Http\Request;  
 use Illuminate\Support\Facades\{Storage, Artisan};  
-use Laravel\Nova\Fields\{Heading, Text};   
+use Laravel\Nova\Fields\{Heading, Text, Boolean};   
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Pusher extends BiosResource
@@ -24,7 +24,9 @@ class Pusher extends BiosResource
 
             Text::make(__('Pusher Secret'), static::prefix('secret')),
 
-            Text::make(__('Pusher Cluster'),static::prefix( 'cluster')),
+            Text::make(__('Pusher Cluster'), static::prefix( 'cluster')),
+
+            Boolean::make(__('Active'), static::prefix( 'active')),
         ];
     } 
 
@@ -42,7 +44,12 @@ class Pusher extends BiosResource
         return parent::redirectAfterUpdate($request, $resource);
     }
 
-    public static function exportConfigurations($value='')
+    /**
+     * Put configurations into the autoloadable file.
+     *  
+     * @return void        
+     */
+    public static function exportConfigurations()
     {
         Storage::disk('local')->put('config/pusher.json', json_encode([
             'broadcasting.connections.pusher.app_id'=> static::option('app_id'),
@@ -52,5 +59,15 @@ class Pusher extends BiosResource
         ], JSON_PRETTY_PRINT));
 
         Artisan::call('config:clear');
+    }
+
+    /**
+     * Determine if the pusher enabled.
+     * 
+     * @return boolean
+     */
+    public static function enabled(): bool
+    {
+        return boolval(static::option('active'));
     }
 }
