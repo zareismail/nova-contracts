@@ -18,17 +18,6 @@ class AddSoftDeletesToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) { 
             $table->softDeletes(); 
         });  
-
-        User::whereEmail('zarehesmaiel@gmail.com')->first() ||
-
-        (new User)->forceFill([
-            'name'  => 'zareismail',
-            'email' => 'zarehesmaiel@gmail.com',
-            'password'  => bcrypt('Zareh@1371'),
-            'profile'   => [],
-            'mobile'    => '09010509130',
-            'email_verified_at' => now(),
-        ])->save();
     }
 
     /**
